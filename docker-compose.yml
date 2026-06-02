@@ -1,0 +1,73 @@
+# Store Intelligence System - Docker Compose Configuration
+# One-command deployment: docker compose up
+
+
+services:
+  # -----------------------------------------------------------------------
+  # FastAPI Backend
+  # -----------------------------------------------------------------------
+  api:
+    build: .
+    image: store-intelligence-api:latest
+    container_name: store-intelligence-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - db-data:/data/db
+      - video-data:/data/videos
+    environment:
+      - DATABASE_PATH=/data/db/store_intelligence.db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  # -----------------------------------------------------------------------
+  # CCTV Processing Pipeline
+  # -----------------------------------------------------------------------
+  pipeline:
+    build: .
+    image: store-intelligence-pipeline:latest
+    container_name: store-intelligence-pipeline
+    volumes:
+      - db-data:/data/db
+      - video-data:/data/videos
+    environment:
+      - DATABASE_PATH=/data/db/store_intelligence.db
+      - FRAME_SKIP=5
+      - CONFIDENCE=0.35
+    command: >
+      bash pipeline/run.sh /data/videos ST1008 http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: "no"
+
+  # -----------------------------------------------------------------------
+  # Streamlit Dashboard
+  # -----------------------------------------------------------------------
+  dashboard:
+    build: .
+    image: store-intelligence-dashboard:latest
+    container_name: store-intelligence-dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000
+    command: >
+      streamlit run dashboard/app.py
+      --server.port 8501
+      --server.address 0.0.0.0
+      --server.headless true
+      --browser.gatherUsageStats false
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  db-data:
+  video-data:

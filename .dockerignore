@@ -1,0 +1,26 @@
+# Ignore Git and IDE metadata
+.git
+.gitignore
+.vscode
+.idea
+.pytest_cache
+.dockerignore
+
+# Ignore Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+dist/
+build/
+*.egg-info/
+
+# Ignore local data (videos and DBs)
+data/videos/*.mp4
+data/videos/*.avi
+data/db/*.db
+*.db
+
+# Ignore tests to keep production images slim
+tests/
