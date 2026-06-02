@@ -54,6 +54,23 @@ pytest tests/ -v --cov=app --cov=pipeline
 -   [Architecture Design](docs/DESIGN.md)
 -   [Technical Choices](docs/CHOICES.md)
 ```
+
+## 📸 Screenshots
+
+### Dashboard Analytics
+![Dashboard](./screenshots/dashboard.png)
+
+### Health API Status
+![Health API](./screenshots/health-api.png)
+
+### Swagger API Documentation – Overview
+![Swagger Docs Overview](./screenshots/swagger-docs1.png)
+
+### Swagger API Documentation – Endpoints
+![Swagger Docs Endpoints](./screenshots/swagger-docs2.png)
+
+
+
 ## 📸 Screenshots
 
 ### Dashboard Analytics
