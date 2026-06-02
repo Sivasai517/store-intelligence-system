@@ -14,7 +14,7 @@ services:
       - "8000:8000"
     volumes:
       - db-data:/data/db
-      - video-data:/data/videos
+      - ./videos:/data/videos
     environment:
       - DATABASE_PATH=/data/db/store_intelligence.db
     healthcheck:
@@ -34,7 +34,7 @@ services:
     container_name: store-intelligence-pipeline
     volumes:
       - db-data:/data/db
-      - video-data:/data/videos
+      - ./videos:/data/videos
     environment:
       - DATABASE_PATH=/data/db/store_intelligence.db
       - FRAME_SKIP=5
@@ -70,4 +70,4 @@ services:
 
 volumes:
   db-data:
-  video-data:
+  
