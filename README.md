@@ -70,7 +70,6 @@ pytest tests/ -v --cov=app --cov=pipeline
 ![Swagger Docs Endpoints](./screenshots/swagger-docs2.png)
 
 
-
 ## 📸 Screenshots
 
 ### Dashboard Analytics
