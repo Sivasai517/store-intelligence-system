@@ -54,3 +54,36 @@ pytest tests/ -v --cov=app --cov=pipeline
 -   [Architecture Design](docs/DESIGN.md)
 -   [Technical Choices](docs/CHOICES.md)
 ```
+## 📸 Screenshots
+
+### Dashboard Analytics
+![Dashboard](screenshots/dashboard.png)
+
+The real-time analytics dashboard displaying visitor count, conversion rate, queue depth, abandonment rate, visitor funnel, heatmap, and dwell-time metrics.
+
+### Health API Status
+![Health API](screenshots/health-api.png)
+
+Health monitoring endpoint showing service status, event count, and system availability.
+
+### Swagger API Documentation – Overview
+![Swagger Docs Overview](screenshots/swagger-docs1.png)
+
+Interactive FastAPI documentation with all available endpoints.
+
+### Swagger API Documentation – Endpoints
+![Swagger Docs Endpoints](screenshots/swagger-docs2.png)
+
+Detailed API endpoint specifications for ingestion, analytics, funnel metrics, anomalies, and health monitoring.
+
+## ✅ Demo Results
+
+- Total Events Processed: **51+**
+- Unique Visitors Detected: **9**
+- Conversion Rate: **22.2%**
+- Queue Depth: **2**
+- Abandonment Rate: **75.0%**
+- YOLOv8 Person Detection: **Working**
+- ByteTrack Tracking: **Working**
+- Real-Time Analytics Dashboard: **Working**
+- Docker Deployment: **Successful**
