@@ -23,3 +23,10 @@
 ## 5. Why Streamlit?
 **Alternatives considered:** React, Dash.
 -   **Final Reasoning**: Streamlit allows for the creation of high-fidelity, interactive dashboards with Python logic, enabling rapid iteration on retail metrics without complex frontend boilerplate.
+
+## 6. Event Schema Design Decisions
+-   **Final Reasoning**: The event schema was designed around a flat, unified `EventPayload` model. Instead of complex nested structures, each event explicitly defines `event_type`, `visitor_id`, and `timestamp`, allowing the SQLite engine to rapidly aggregate and filter events using simple relational queries.
+
+## 7. API Architecture Decisions
+**Alternatives considered:** GraphQL, gRPC.
+-   **Final Reasoning**: A RESTful API architecture was chosen for simplicity and broad compatibility. It allows decoupled development where the edge computer vision pipeline (producer) simply pushes stateless HTTP POST requests, while the Streamlit dashboard (consumer) pulls standard JSON responses.
