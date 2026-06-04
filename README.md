@@ -1,18 +1,49 @@
 # Store Intelligence System 🏪
 
+![Python 3.11](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![YOLOv8](https://img.shields.io/badge/YOLOv8-Object_Detection-orange)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+
 An end-to-end retail analytics pipeline that processes CCTV footage to generate real-time metrics, visitor funnels, and anomaly alerts.
 
 ## 🏗️ Architecture Diagram
 
 ```mermaid
-graph LR
-    CCTV[CCTV Video] --> YOLO[YOLOv8 Detection]
-    YOLO --> ByteTrack[ByteTrack Tracking]
-    ByteTrack --> Emit[Event Generation]
-    Emit --> FastAPI[FastAPI Backend]
-    FastAPI --> Analytics[Analytics Engine]
-    Analytics --> Streamlit[Streamlit Dashboard]
+flowchart LR
+    A[CCTV Video Feed] --> B[YOLOv8 Person Detection]
+    B --> C[ByteTrack Multi-Object Tracking]
+    C --> D[Event Generation]
+    D --> E[FastAPI Backend]
+    E --> F[SQLite Database]
+    E --> G[Analytics Engine]
+    G --> H[Streamlit Dashboard]
+    G --> I[Anomaly Detection]
 ```
+
+## 🔄 System Workflow
+
+* **Step 1**: CCTV footage is processed by YOLOv8.
+* **Step 2**: ByteTrack maintains visitor identities.
+* **Step 3**: Events are generated and sent to FastAPI.
+* **Step 4**: Metrics and analytics are calculated.
+* **Step 5**: Dashboard visualizes KPIs in real time.
+* **Step 6**: Anomaly engine generates operational alerts.
+
+## 🎯 Challenge Requirements Mapping
+
+| Requirement         | Implementation   |
+| ------------------- | ---------------- |
+| Person Detection    | YOLOv8           |
+| Tracking            | ByteTrack        |
+| Event Pipeline      | pipeline/emit.py |
+| Metrics API         | FastAPI          |
+| Dashboard           | Streamlit        |
+| Real-Time Analytics | Implemented      |
+| Docker Deployment   | Implemented      |
+| Testing             | Pytest           |
 
 ## 💼 Business Impact
 
@@ -94,6 +125,14 @@ pytest tests/ -v --cov=app --cov=pipeline
 -   **Visitor Funnel**: Visual representation of the customer journey.
 -   **Zone Heatmap**: Activity scores per store area.
 -   **Anomaly Alerts**: Live notification of critical events like queue spikes.
+
+## 🔮 Future Enhancements
+
+* Multi-camera tracking
+* Cross-store analytics
+* Predictive queue forecasting
+* Customer segmentation
+* Cloud deployment
 
 ## 📄 Documentation
 
