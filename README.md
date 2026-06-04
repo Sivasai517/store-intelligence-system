@@ -2,6 +2,52 @@
 
 An end-to-end retail analytics pipeline that processes CCTV footage to generate real-time metrics, visitor funnels, and anomaly alerts.
 
+## 🏗️ Architecture Diagram
+
+```mermaid
+graph LR
+    CCTV[CCTV Video] --> YOLO[YOLOv8 Detection]
+    YOLO --> ByteTrack[ByteTrack Tracking]
+    ByteTrack --> Emit[Event Generation]
+    Emit --> FastAPI[FastAPI Backend]
+    FastAPI --> Analytics[Analytics Engine]
+    Analytics --> Streamlit[Streamlit Dashboard]
+```
+
+## 💼 Business Impact
+
+* **Queue management optimization**: Detects queue spikes in real-time to alert managers to open more registers.
+* **Customer conversion analysis**: Tracks the complete funnel from store entry to purchase, allowing targeted improvements to reduce abandonment.
+* **Store layout optimization through heatmaps**: Identifies high-traffic and low-traffic zones to optimize product placement.
+* **Staffing and operational insights**: Excludes staff from analytics to provide pure customer metrics, helping align staffing schedules with actual foot traffic.
+* **Real-time anomaly detection**: Instantly flags unusual behavior, such as massive crowds or sudden abandonment, enabling immediate operational response.
+
+## 💡 Why This Solution?
+
+The Store Intelligence System bridges the gap between passive video surveillance and actionable retail intelligence. By processing existing CCTV footage without requiring expensive specialized hardware, it empowers retail businesses to make data-driven decisions. Store managers can instantly identify bottlenecks, optimize product placements based on actual customer dwell times, and improve overall customer satisfaction through proactive queue management.
+
+## 🌟 Key Features
+
+* **Real-time visitor tracking**: Maintains unique identities across camera frames using advanced ByteTrack algorithms.
+* **Conversion funnel analytics**: Visualizes the exact drop-off rates from entry, to queue joining, to final purchase.
+* **Zone heatmaps**: Generates activity scores and dwell times for distinct store areas.
+* **Queue monitoring**: Tracks active queue depth and alerts on abandonment.
+* **Anomaly detection**: Automated alerts for unusual store activity or crowding.
+* **REST APIs**: Fully documented, idempotent endpoints for seamless integration.
+* **Dockerized deployment**: Production-ready setup requiring zero local environment configuration.
+
+## 🛠️ Technology Stack
+
+| Component | Technology | Description |
+| :--- | :--- | :--- |
+| **Object Detection** | YOLOv8 | High-speed, accurate person detection from CCTV frames. |
+| **Object Tracking** | ByteTrack | Robust multi-object tracking to maintain visitor identities. |
+| **Backend API** | FastAPI | High-performance async API for event ingestion and analytics. |
+| **Database** | SQLite | Lightweight, zero-config database with WAL for fast writes. |
+| **Frontend UI** | Streamlit | Real-time, interactive dashboard for data visualization. |
+| **Deployment** | Docker Compose | Containerized orchestration for easy one-command setup. |
+| **Language** | Python 3.11 | Core programming language for all microservices. |
+
 ## 🚀 One-Command Deployment
 
 The entire system (API, Pipeline, Dashboard) runs via Docker Compose:
