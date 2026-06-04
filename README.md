@@ -54,7 +54,6 @@ pytest tests/ -v --cov=app --cov=pipeline
 -   [Architecture Design](docs/DESIGN.md)
 -   [Technical Choices](docs/CHOICES.md)
 
-
 ## 📸 Screenshots
 
 ### Dashboard Analytics
@@ -88,3 +87,15 @@ Detailed API endpoint specifications for ingestion, analytics, funnel metrics, a
 - ByteTrack Tracking: **Working**
 - Real-Time Analytics Dashboard: **Working**
 - Docker Deployment: **Successful**
+
+## 🗃️ Sample Data
+
+A sample data file `sample_events.jsonl` is included in the root directory. 
+- **Contents**: It contains 20 realistic retail analytics events representing a complete customer journey (Entry → Zone Dwell → Billing Queue → Purchase → Exit) across multiple visitors, including a non-converting visitor.
+- **Pipeline Relation**: This file perfectly matches the Pydantic schemas expected by the FastAPI ingestion layer (`POST /events/ingest`). It represents the structured output that the YOLOv8 + ByteTrack computer vision pipeline (`pipeline/emit.py`) produces and sends to the backend.
+- **Usage for Reviewers**: Reviewers can use this file to test the ingestion API directly without running the full video inference pipeline. For example, using curl:
+  ```bash
+  curl -X POST http://localhost:8000/events/ingest \
+       -H "Content-Type: application/json" \
+       -d "{\"events\": [$(cat sample_events.jsonl | sed -e 's/$/,/' | tr -d '\n' | sed 's/,$//')]}"
+  ```
